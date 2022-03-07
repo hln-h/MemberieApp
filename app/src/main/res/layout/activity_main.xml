@@ -17,4 +17,12 @@
         app:layout_constraintTop_toTopOf="parent"
         app:navGraph="@navigation/nav_graph" />
 
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/frag_container_events_list"
+        android:name="com.hoang.memberie.fragments.EventsListFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/nav_host_fragment"
+        app:navGraph="@navigation/nav_graph" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,9 +5,10 @@
       <map>
         <entry key="app/src/main/res/drawable/ic_menu.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/image_overlay.xml" value="0.112" />
-        <entry key="app/src/main/res/layout/activity_database.xml" value="0.21822916666666667" />
+        <entry key="app/src/main/res/layout/activity_database.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_event.xml" value="0.21822916666666667" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.19630192502532928" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.596868026099548" />
+        <entry key="app/src/main/res/layout/fragment_events_list.xml" value="0.19630192502532928" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.24550628662109378" />
         <entry key="app/src/main/res/menu/popup_menu.xml" value="0.4036458333333333" />
       </map>

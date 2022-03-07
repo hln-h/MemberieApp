@@ -80,14 +80,4 @@
         app:layout_constraintStart_toEndOf="@+id/card_view"
         app:layout_constraintTop_toTopOf="@+id/card_view" />
 
-    <Button
-        android:id="@+id/btn_database"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:text="Database"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_hello" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
