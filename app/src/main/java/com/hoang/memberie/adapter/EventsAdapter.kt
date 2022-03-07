@@ -3,8 +3,10 @@ package com.hoang.memberie.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.hoang.memberie.R
 import com.hoang.memberie.models.Event
 
@@ -27,6 +29,7 @@ class EventsAdapter() : RecyclerView.Adapter<EventsAdapter.EventViewHolder>() {
     override fun onBindViewHolder(holder: EventViewHolder, position: Int) {
         val currentData: Event = dataSet[position]
         holder.eventTitle.text = currentData.title
+        holder.eventThumbnail.load(currentData.photosUrls.firstOrNull())
         holder.itemView.setOnClickListener { onItemClicked(currentData) }
     }
 
@@ -36,6 +39,7 @@ class EventsAdapter() : RecyclerView.Adapter<EventsAdapter.EventViewHolder>() {
 
     class EventViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var eventTitle: TextView = view.findViewById(R.id.tv_event_title)
+        var eventThumbnail: ImageView = view.findViewById(R.id.iv_event_detail)
 
     }
 }

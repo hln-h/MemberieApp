@@ -3,8 +3,10 @@ package com.hoang.memberie.fragments
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import coil.load
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -15,6 +17,9 @@ import com.hoang.memberie.databinding.FragmentEventsListBinding
 import com.hoang.memberie.models.Event
 
 class EventsListFragment : Fragment(R.layout.fragment_events_list) {
+
+    private lateinit var event: Event
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -49,6 +54,8 @@ class EventsListFragment : Fragment(R.layout.fragment_events_list) {
 
                 eventsAdapter.setData(events)
             }
+
+
 
 //------------------------ DO NOT DELETE THIS CODE YET--------------------------
 
