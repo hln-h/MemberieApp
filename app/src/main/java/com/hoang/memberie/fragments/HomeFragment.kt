@@ -15,7 +15,7 @@ import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.hoang.memberie.R
-import com.hoang.memberie.activities.DatabaseActivity
+import com.hoang.memberie.activities.AddEventActivity
 import com.hoang.memberie.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
@@ -56,7 +56,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private fun setOnAddButtonClicked(binding: FragmentHomeBinding) {
         binding.btnMore.setOnClickListener {
-            startActivity(Intent(activity, DatabaseActivity::class.java))
+            startActivity(Intent(activity, AddEventActivity::class.java))
         }
     }
 
