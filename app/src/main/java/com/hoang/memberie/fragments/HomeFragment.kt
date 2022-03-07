@@ -1,8 +1,10 @@
 package com.hoang.memberie.fragments
 
-import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.widget.EditText
 import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -12,11 +14,14 @@ import coil.transform.BlurTransformation
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.hoang.memberie.R
-import com.hoang.memberie.activities.AddEventActivity
 import com.hoang.memberie.databinding.FragmentHomeBinding
+import com.hoang.memberie.models.Event
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
 
@@ -56,7 +61,42 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private fun setOnAddButtonClicked(binding: FragmentHomeBinding) {
         binding.btnMore.setOnClickListener {
-            startActivity(Intent(activity, AddEventActivity::class.java))
+            val database = Firebase.firestore
+            val inflater = LayoutInflater.from(activity)
+            val addEventView = inflater.inflate(R.layout.dialog_add_event, null)
+
+            MaterialAlertDialogBuilder(requireContext())
+                .setTitle("Add a new event")
+                .setMessage("Choose a title")
+                .setView(addEventView)
+                .setNeutralButton("cancel") { dialog, which ->
+                    // Respond to neutral button press
+                }
+
+                .setPositiveButton("ADD") { dialog, which ->
+                    val event = Event(
+                        "",
+                        addEventView.findViewById<EditText>(R.id.et_event_title).text.toString(),
+                        listOf(),
+                        listOf(
+                            FirebaseAuth.getInstance().currentUser?.email!!, // current user should always be in the list of users
+                            // The rest of the users could be added in the event screen (one by one to not overcomplicate)
+                        )
+                    )
+
+                    database.collection("events")
+                        .add(event)
+                        .addOnSuccessListener { documentReference ->
+                            Log.d(
+                                "Successful Add Message",
+                                "DocumentSnapshot added with ID: ${documentReference.id}"
+                            )
+                        }
+                        .addOnFailureListener { e ->
+                            Log.w("Failure Add Message", "Error adding document", e)
+                        }
+                }
+                .show()
         }
     }
 
