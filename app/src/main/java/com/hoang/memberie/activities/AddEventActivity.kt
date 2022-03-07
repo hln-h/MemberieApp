@@ -10,7 +10,6 @@ import com.hoang.memberie.databinding.ActivityAddEventBinding
 import com.hoang.memberie.models.Event
 
 class AddEventActivity : AppCompatActivity() {
-///test
     private lateinit var binding: ActivityAddEventBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
