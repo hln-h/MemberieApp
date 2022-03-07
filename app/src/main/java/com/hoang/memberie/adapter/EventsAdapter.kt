@@ -17,6 +17,7 @@ class EventsAdapter() : RecyclerView.Adapter<EventsAdapter.EventViewHolder>() {
 
 
     fun setData(dataParam: List<Event>) {
+        dataSet.clear()
         dataSet.addAll(dataParam)
         notifyDataSetChanged()
     }

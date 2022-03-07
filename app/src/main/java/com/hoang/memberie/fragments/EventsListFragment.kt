@@ -3,10 +3,8 @@ package com.hoang.memberie.fragments
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import coil.load
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -43,15 +41,14 @@ class EventsListFragment : Fragment(R.layout.fragment_events_list) {
         // get events for the logged in user and set the id for each event
         database.collection("events")
             .whereArrayContains("usersEmails", FirebaseAuth.getInstance().currentUser?.email!!)
-            .get()
-            .addOnSuccessListener { documents ->
-//                val events = documents.toObjects(Event::class.java)
+            .addSnapshotListener{ documents, e ->
+                if (documents == null) { return@addSnapshotListener }
+
                 val events = documents.map {
                     val event = it.toObject(Event::class.java)
                     event.id = it.id
                     return@map event
                 }
-
                 eventsAdapter.setData(events)
             }
 
