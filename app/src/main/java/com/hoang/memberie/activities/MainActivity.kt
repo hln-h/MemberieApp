@@ -3,15 +3,24 @@ package com.hoang.memberie.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
+import android.view.View
 import android.widget.Button
+import android.widget.PopupMenu
 import android.widget.Toast
+import coil.load
+import coil.transform.BlurTransformation
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.hoang.memberie.R
+import com.hoang.memberie.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityMainBinding
 
     private val signInLauncher = registerForActivityResult(
         FirebaseAuthUIActivityResultContract()
@@ -22,20 +31,59 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
 
         var currentUser = FirebaseAuth.getInstance().currentUser
+
         if (currentUser != null) {
             Toast.makeText(this, currentUser.displayName, Toast.LENGTH_SHORT).show()
         } else {
             launchSignIn()
         }
 
-        setOnClickLogOutButton()
+        setUserProfileInfo(currentUser)
+
+        setBackgroundImg(currentUser)
 
         setOnClickDatabaseButton()
+
+        setOnMenuButtonClicked()
+    }
+
+    private fun setBackgroundImg(currentUser: FirebaseUser?) {
+        binding.ivImgBackground.load(currentUser?.photoUrl) {
+            transformations(BlurTransformation(applicationContext, 4f))
+        }
+    }
+
+    private fun setOnMenuButtonClicked() {
+        binding.imBtnMenu.setOnClickListener { v: View ->
+            showMenu(v, R.menu.popup_menu)
+        }
+    }
+
+    private fun showMenu(v: View, menuRes: Int) {
+        val popup = PopupMenu(this, v)
+        popup.menuInflater.inflate(menuRes, popup.menu)
+
+        popup.setOnMenuItemClickListener {
+            if (it.itemId == R.id.option_1) {
+                signOutAndLaunchSignIn()
+            }
+            if (it.itemId == R.id.option_2) {
+                Toast.makeText(this, "Notifications", Toast.LENGTH_SHORT).show()
+            }
+            false
+        }
+        popup.show()
+    }
+
+    private fun setUserProfileInfo(currentUser: FirebaseUser?) {
+        binding.ivUserAvatar.load(currentUser?.photoUrl)
+        binding.tvHello.text = "Hello ${currentUser?.displayName}!"
     }
 
     private fun setOnClickDatabaseButton() {
@@ -59,15 +107,13 @@ class MainActivity : AppCompatActivity() {
         signInLauncher.launch(signInIntent)
     }
 
-    private fun setOnClickLogOutButton() {
-        findViewById<Button>(R.id.btn_logout).setOnClickListener {
-            AuthUI.getInstance()
-                .signOut(this)
-                .addOnCompleteListener {
-                    launchSignIn()
-                }
-        }
 
+    private fun signOutAndLaunchSignIn() {
+        AuthUI.getInstance()
+            .signOut(this)
+            .addOnCompleteListener {
+                launchSignIn()
+            }
     }
 
     private fun onSignInResult(result: FirebaseAuthUIAuthenticationResult) {
