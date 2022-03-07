@@ -21,8 +21,8 @@
 
             <ImageView
                 android:id="@+id/iv_event_detail"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:scaleType="centerCrop"
                 android:adjustViewBounds="true"
                 tools:src="@drawable/ic_launcher_background"

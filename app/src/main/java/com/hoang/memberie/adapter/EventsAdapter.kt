@@ -30,7 +30,9 @@ class EventsAdapter() : RecyclerView.Adapter<EventsAdapter.EventViewHolder>() {
     override fun onBindViewHolder(holder: EventViewHolder, position: Int) {
         val currentData: Event = dataSet[position]
         holder.eventTitle.text = currentData.title
-        holder.eventThumbnail.load(currentData.photosUrls.firstOrNull())
+        holder.eventThumbnail.load(currentData.photosUrls.firstOrNull()) {
+            placeholder(R.drawable.placeholder_img)
+        }
         holder.itemView.setOnClickListener { onItemClicked(currentData) }
     }
 
