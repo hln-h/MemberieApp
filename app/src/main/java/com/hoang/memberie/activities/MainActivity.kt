@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.PopupMenu
 import android.widget.Toast
 import coil.load
+import coil.transform.BlurTransformation
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
@@ -45,9 +46,17 @@ class MainActivity : AppCompatActivity() {
 
         setUserProfileInfo(currentUser)
 
+        setBackgroundImg(currentUser)
+
         setOnClickDatabaseButton()
 
         setOnMenuButtonClicked()
+    }
+
+    private fun setBackgroundImg(currentUser: FirebaseUser?) {
+        binding.ivImgBackground.load(currentUser?.photoUrl) {
+            transformations(BlurTransformation(applicationContext, 4f))
+        }
     }
 
     private fun setOnMenuButtonClicked() {
