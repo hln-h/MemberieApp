@@ -20,4 +20,4 @@ The App shows popular movies and series. The user can see details about the movi
 
 
 
-This is a student project that was created by @carokds @MareikeHerrmann at CodeOp, an Android bootcamp in Barcelona.
+This is a student project that was created by @carokds @hln-h at CodeOp, an Android bootcamp in Barcelona.
