@@ -20,6 +20,18 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@drawable/ic_launcher_background" />
 
+    <ImageButton
+        android:id="@+id/im_btn_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/ic_more"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/white" />
+
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card_view"
@@ -46,16 +58,17 @@
 
     </androidx.cardview.widget.CardView>
 
-    <ImageButton
-        android:id="@+id/im_btn_menu"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_more"
+        app:fabSize="mini"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:src="@drawable/ic_more"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_add"
+        app:backgroundTint="@color/pink"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/card_view"
         app:tint="@color/white" />
 
     <TextView

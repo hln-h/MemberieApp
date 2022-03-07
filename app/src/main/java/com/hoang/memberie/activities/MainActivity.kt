@@ -1,13 +1,12 @@
 package com.hoang.memberie.activities
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.PopupMenu
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import coil.load
 import coil.transform.BlurTransformation
 import com.firebase.ui.auth.AuthUI
@@ -50,7 +49,15 @@ class MainActivity : AppCompatActivity() {
 
         setOnClickDatabaseButton()
 
+        setOnAddButtonClicked()
+
         setOnMenuButtonClicked()
+    }
+
+    private fun setOnAddButtonClicked() {
+        binding.btnMore.setOnClickListener {
+            startActivity(Intent(this, DatabaseActivity::class.java))
+        }
     }
 
     private fun setBackgroundImg(currentUser: FirebaseUser?) {
