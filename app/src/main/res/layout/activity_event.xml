@@ -1,18 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fl_btn_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_baseline_add_24"
-        app:tint="@color/white"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="24dp"/>
+        android:layout_marginEnd="24dp"
+        android:src="@drawable/ic_baseline_add_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/white" />
+
+    <com.google.android.material.button.MaterialButtonToggleGroup
+        android:id="@+id/muteToggleGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:checkedButton="@id/btn_unmute"
+        app:singleSelection="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_mute"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+            android:layout_gravity="center"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/mute"
+            app:iconTint="@android:color/holo_red_light" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_unmute"
+            android:scaleType="fitCenter"
+            android:layout_width="50dp"
+           style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/unmute" />
+
+    </com.google.android.material.button.MaterialButtonToggleGroup>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

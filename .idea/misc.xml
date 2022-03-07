@@ -6,8 +6,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.1625" />
+        <entry key="app/src/main/res/drawable/mute.xml" value="0.217" />
+        <entry key="app/src/main/res/drawable/unmute.xml" value="0.217" />
         <entry key="app/src/main/res/layout/activity_add_event.xml" value="0.1828774062816616" />
-        <entry key="app/src/main/res/layout/activity_event.xml" value="0.1828774062816616" />
+        <entry key="app/src/main/res/layout/activity_database.xml" value="0.1828774062816616" />
+        <entry key="app/src/main/res/layout/activity_event.xml" value="0.1675362197582241" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1828774062816616" />
         <entry key="app/src/main/res/layout/item_event.xml" value="0.1828774062816616" />
       </map>

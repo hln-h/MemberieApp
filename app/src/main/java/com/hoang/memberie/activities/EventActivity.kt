@@ -50,7 +50,17 @@ class EventActivity : AppCompatActivity() {
         binding.flBtnAdd.setOnClickListener {
             launchCameraIntentLauncher.launch(arrayOf("image/*"))
         }
+
+//
+        binding.btnMute.setOnClickListener{
+            muteMusic()
+        }
+        binding.btnUnmute.setOnClickListener{
+            resumeMusic()
+        }
     }
+
+
 
     //SPOTIFY STARTUP
     override fun onStart() {
@@ -90,19 +100,39 @@ class EventActivity : AppCompatActivity() {
         }
 
     }
+//mute music
+    private fun muteMusic() {
+    spotifyAppRemote?.let {
+        it.playerApi.pause()
+    }
+    }
+
+    //resume music
+    private fun resumeMusic() {
+        spotifyAppRemote?.let {
+            it.playerApi.resume()
+        }
+    }
+
 //SPOTIFY ENDS
     override fun onPause() {
     super.onPause()
     spotifyAppRemote?.let {
             it.playerApi.pause()
-//            SpotifyAppRemote.disconnect(it)
         }
+    }
 
+    override fun onStop() {
+        super.onStop()
+        spotifyAppRemote?.let {
+            SpotifyAppRemote.disconnect(it)
+        }
     }
 
 
 
-    private fun uploadFromUri(fileUri: Uri) {
+
+        private fun uploadFromUri(fileUri: Uri) {
         var storageRef = FirebaseStorage.getInstance().reference
         fileUri.lastPathSegment?.let {
             val photoRef = storageRef.child("photos").child(it)
