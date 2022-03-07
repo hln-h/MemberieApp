@@ -3,7 +3,10 @@ package com.hoang.memberie.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
+import android.view.View
 import android.widget.Button
+import android.widget.PopupMenu
 import android.widget.Toast
 import coil.load
 import com.firebase.ui.auth.AuthUI
@@ -32,7 +35,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 
-
         var currentUser = FirebaseAuth.getInstance().currentUser
 
         if (currentUser != null) {
@@ -41,17 +43,38 @@ class MainActivity : AppCompatActivity() {
             launchSignIn()
         }
 
-        setUserAvatar(currentUser)
-
-
-
-        setOnClickLogOutButton()
+        setUserProfileInfo(currentUser)
 
         setOnClickDatabaseButton()
+
+        setOnMenuButtonClicked()
     }
 
-    private fun setUserAvatar(currentUser: FirebaseUser?) {
+    private fun setOnMenuButtonClicked() {
+        binding.imBtnMenu.setOnClickListener { v: View ->
+            showMenu(v, R.menu.popup_menu)
+        }
+    }
+
+    private fun showMenu(v: View, menuRes: Int) {
+        val popup = PopupMenu(this, v)
+        popup.menuInflater.inflate(menuRes, popup.menu)
+
+        popup.setOnMenuItemClickListener {
+            if (it.itemId == R.id.option_1) {
+                signOutAndLaunchSignIn()
+            }
+            if (it.itemId == R.id.option_2) {
+                Toast.makeText(this, "Notifications", Toast.LENGTH_SHORT).show()
+            }
+            false
+        }
+        popup.show()
+    }
+
+    private fun setUserProfileInfo(currentUser: FirebaseUser?) {
         binding.ivUserAvatar.load(currentUser?.photoUrl)
+        binding.tvHello.text = "Hello ${currentUser?.displayName}!"
     }
 
     private fun setOnClickDatabaseButton() {
@@ -75,15 +98,13 @@ class MainActivity : AppCompatActivity() {
         signInLauncher.launch(signInIntent)
     }
 
-    private fun setOnClickLogOutButton() {
-        findViewById<Button>(R.id.btn_logout).setOnClickListener {
-            AuthUI.getInstance()
-                .signOut(this)
-                .addOnCompleteListener {
-                    launchSignIn()
-                }
-        }
 
+    private fun signOutAndLaunchSignIn() {
+        AuthUI.getInstance()
+            .signOut(this)
+            .addOnCompleteListener {
+                launchSignIn()
+            }
     }
 
     private fun onSignInResult(result: FirebaseAuthUIAuthenticationResult) {
