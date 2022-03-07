@@ -5,13 +5,18 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
+import coil.load
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.hoang.memberie.R
+import com.hoang.memberie.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityMainBinding
 
     private val signInLauncher = registerForActivityResult(
         FirebaseAuthUIActivityResultContract()
@@ -22,20 +27,31 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
 
 
         var currentUser = FirebaseAuth.getInstance().currentUser
+
         if (currentUser != null) {
             Toast.makeText(this, currentUser.displayName, Toast.LENGTH_SHORT).show()
         } else {
             launchSignIn()
         }
 
+        setUserAvatar(currentUser)
+
+
+
         setOnClickLogOutButton()
 
         setOnClickDatabaseButton()
+    }
+
+    private fun setUserAvatar(currentUser: FirebaseUser?) {
+        binding.ivUserAvatar.load(currentUser?.photoUrl)
     }
 
     private fun setOnClickDatabaseButton() {
