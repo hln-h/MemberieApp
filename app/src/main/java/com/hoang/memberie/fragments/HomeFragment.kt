@@ -67,7 +67,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
             MaterialAlertDialogBuilder(requireContext())
                 .setTitle("Add a new event")
-                .setMessage("Choose a title")
+//                .setMessage("Choose a title")
                 .setView(addEventView)
                 .setNeutralButton("cancel") { dialog, which ->
                     // Respond to neutral button press
