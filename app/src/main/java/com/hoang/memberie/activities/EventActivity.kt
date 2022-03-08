@@ -3,6 +3,9 @@ package com.hoang.memberie.activities
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.PopupMenu
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.ktx.firestore
@@ -10,6 +13,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.component1
 import com.google.firebase.storage.ktx.component2
+import com.hoang.memberie.R
 import com.hoang.memberie.databinding.ActivityEventBinding
 import com.hoang.memberie.models.Event
 import com.spotify.android.appremote.api.ConnectionParams
@@ -47,19 +51,33 @@ class EventActivity : AppCompatActivity() {
             // add an onListener to database
         }
 
-        binding.flBtnAdd.setOnClickListener {
-            launchCameraIntentLauncher.launch(arrayOf("image/*"))
+        binding.flBtnAdd.setOnClickListener { v: View ->
+            showMenu(v, R.menu.popup_menu_event_details)
         }
 
-//
-        binding.btnMute.setOnClickListener{
+        binding.btnMute.setOnClickListener {
             muteMusic()
         }
-        binding.btnUnmute.setOnClickListener{
+        binding.btnUnmute.setOnClickListener {
             resumeMusic()
         }
     }
 
+    private fun showMenu(v: View, menuRes: Int) {
+        val popup = PopupMenu(this, v)
+        popup.menuInflater.inflate(menuRes, popup.menu)
+
+        popup.setOnMenuItemClickListener {
+            if (it.itemId == R.id.option_1) {
+                Toast.makeText(this, "Invite Friend TODO", Toast.LENGTH_SHORT).show()
+            }
+            if (it.itemId == R.id.option_2) {
+                launchCameraIntentLauncher.launch(arrayOf("image/*"))
+            }
+            false
+        }
+        popup.show()
+    }
 
 
     //SPOTIFY STARTUP
@@ -100,11 +118,12 @@ class EventActivity : AppCompatActivity() {
         }
 
     }
-//mute music
+
+    //mute music
     private fun muteMusic() {
-    spotifyAppRemote?.let {
-        it.playerApi.pause()
-    }
+        spotifyAppRemote?.let {
+            it.playerApi.pause()
+        }
     }
 
     //resume music
@@ -114,10 +133,10 @@ class EventActivity : AppCompatActivity() {
         }
     }
 
-//SPOTIFY ENDS
+    //SPOTIFY ENDS
     override fun onPause() {
-    super.onPause()
-    spotifyAppRemote?.let {
+        super.onPause()
+        spotifyAppRemote?.let {
             it.playerApi.pause()
         }
     }
@@ -130,9 +149,7 @@ class EventActivity : AppCompatActivity() {
     }
 
 
-
-
-        private fun uploadFromUri(fileUri: Uri) {
+    private fun uploadFromUri(fileUri: Uri) {
         var storageRef = FirebaseStorage.getInstance().reference
         fileUri.lastPathSegment?.let {
             val photoRef = storageRef.child("photos").child(it)
