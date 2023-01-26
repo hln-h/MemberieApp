@@ -37,8 +37,8 @@ class EventActivity : AppCompatActivity() {
         }
 
     //SPOTIFY VALUES
-    private val clientId = "74c9ed5fb39d42a9bb61aba41b7ff2af"
-    private val redirectUri = "https://com.hoang.memberie/callback/"
+    private val clientId = "CLIENT_KEY" //ADD OWN KEY
+    private val redirectUri = "REDIRECT_URI" //ADD OWN KEY
     private var spotifyAppRemote: SpotifyAppRemote? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -107,7 +107,7 @@ class EventActivity : AppCompatActivity() {
     private fun connected() {
         spotifyAppRemote?.let {
             // Play a playlist
-            val playlistURI = "spotify:playlist:37i9dQZF1E8GHq2jCrGe9p"
+            val playlistURI = "PLAYLIST_URI" //ADD OWN KEY
             it.playerApi.setShuffle(true)
             it.playerApi.play(playlistURI)
             // Subscribe to PlayerState
